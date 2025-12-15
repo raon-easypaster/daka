@@ -1,62 +1,519 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>선교 편지 제목 (예: OOO 선교사 가정 소식)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Noto Sans KR"', 'sans-serif'],
-            serif: ['"Noto Serif KR"', 'serif'],
-          },
-          colors: {
-            mission: {
-              50: '#f7f7f5',
-              100: '#efefeb',
-              200: '#dcdcd5',
-              300: '#c0c0b5',
-              400: '#a0a090',
-              500: '#858570',
-              600: '#6a6a58',
-              700: '#565649',
-              800: '#48483e',
-              900: '#3e3e36',
-            },
-            highlight: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              200: '#bae6fd',
-              300: '#7dd3fc',
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
-              800: '#075985',
-              900: '#0c4a6e',
-            }
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhaka Mission Dashboard</title>
+    
+    <!-- 1. Tailwind CSS (스타일링) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. React & ReactDOM & Lucide Icons (Import Map) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@18.2.0",
+            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+            "lucide-react": "https://esm.sh/lucide-react@0.344.0"
         }
-      }
     }
-  </script>
-  <style>
-    body { background-color: #f5f5f4; color: #44403c; padding: 20px; }
-    #newsletter-wrapper { max-width: 210mm; margin: 0 auto; background: white; padding: 10mm; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-    @media print {
-      body { background: white; margin: 0; padding: 0; }
-      #newsletter-wrapper { box-shadow: none; padding: 0; max-width: none; }
-    }
-  </style>
+    </script>
+    
+    <!-- 3. Babel (브라우저에서 JSX 실행) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        /* 스크롤바 숨기기 (선택사항) */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
 </head>
-<body>
-  <div id="newsletter-wrapper">
-    <header class="mb-8 relative group"><div class="bg-cover bg-center h-32 md:h-40 rounded-xl overflow-hidden relative mb-4 print:h-32 transition-all" style="background-image: url(&quot;https://picsum.photos/800/200?blur=2&quot;);"><div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center p-4 z-10"><p class="text-white/90 font-serif text-lg md:text-xl font-medium tracking-wider">202X년 X월</p><h1 class="text-white font-serif font-bold text-2xl md:text-4xl drop-shadow-md mt-1">선교 편지 제목 (예: OOO 선교사 가정 소식)</h1></div></div></header><div class="space-y-6"><div class="relative mb-8 group "><div><h3 class="font-serif text-lg font-bold text-stone-800 mb-2">#1 첫 번째 소식 제목</h3><div class="text-base leading-relaxed text-justify text-stone-700 whitespace-pre-wrap">이곳에 첫 번째 사역 소식이나 근황을 작성해주세요.
-클릭하면 내용을 수정할 수 있습니다. 최근 있었던 감사한 일이나 사역지의 상황을 나누어주시면 좋습니다.</div></div></div><div class="relative mb-8 group "><div class="flex flex-wrap gap-4 justify-between items-start"><div class="flex-1 min-w-[150px] flex flex-col items-center"><div class="w-full aspect-[4/3] bg-gray-100 overflow-hidden rounded shadow-sm relative group/img"><img alt="사진 설명 2" class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfTWkU2ZL61LcZDUhWSolggyPAoBGgg-haUrwhQw4cSVdAcl1J1fzyYVTmYpQafCz49X-FholLX0jzoUDTWq9VyDXvDaVh9Nnh92_pwBM&amp;s=10"></div><p class="text-center mt-2 text-sm font-medium text-stone-600">사진 설명 2</p></div><div class="flex-1 min-w-[150px] flex flex-col items-center"><div class="w-full aspect-[4/3] bg-gray-100 overflow-hidden rounded shadow-sm relative group/img"><img alt="사진 설명 3" class="w-full h-full object-cover" src="https://picsum.photos/400/300?random=3"></div><p class="text-center mt-2 text-sm font-medium text-stone-600">사진 설명 3</p></div><div class="flex-1 min-w-[150px] flex flex-col items-center"><div class="w-full aspect-[4/3] bg-gray-100 overflow-hidden rounded shadow-sm relative group/img"><img alt="새 사진" class="w-full h-full object-cover" src="https://picsum.photos/400/300"></div><p class="text-center mt-2 text-sm font-medium text-stone-600">새 사진</p></div></div></div><div class="relative mb-8 group "><div><h3 class="font-serif text-lg font-bold text-stone-800 mb-2">#2 두 번째 소식 제목</h3><div class="text-base leading-relaxed text-justify text-stone-700 whitespace-pre-wrap">이곳에 두 번째 소식을 작성해주세요. 구체적인 사역 내용이나 간증을 나누어주세요.</div></div></div><div class="relative mb-8 group "><div class="flex flex-wrap gap-4 justify-between items-start"><div class="flex-1 min-w-[150px] flex flex-col items-center"><div class="w-full aspect-[4/3] bg-gray-100 overflow-hidden rounded shadow-sm relative group/img"><img alt="캡션" class="w-full h-full object-cover" src="https://picsum.photos/300/200"></div><p class="text-center mt-2 text-sm font-medium text-stone-600">캡션</p></div></div></div><div class="relative mb-8 group "><div><h3 class="font-serif text-lg font-bold text-stone-800 mb-2">#3 세 번째 소식 제목</h3><div class="text-base leading-relaxed text-justify text-stone-700 whitespace-pre-wrap">이곳에 세 번째 소식을 작성해주세요. 필요한 경우 이 섹션을 삭제하거나 내용을 추가할 수 있습니다.</div></div></div><div class="relative mb-8 group "><div><h3 class="font-serif text-lg font-bold text-stone-800 mb-2">#4 네 번째 소식 제목</h3><div class="text-base leading-relaxed text-justify text-stone-700 whitespace-pre-wrap">이곳에 네 번째 소식을 작성해주세요.</div></div></div><div class="relative mb-8 group "><div class="bg-highlight-100 border border-highlight-300 rounded-lg p-6 shadow-sm"><h3 class="text-center font-serif text-xl font-bold text-highlight-800 mb-4 bg-highlight-200/50 py-1 rounded inline-block w-full">사역 현황 및 안내</h3><ul class="space-y-2"><li class="flex items-start text-stone-700"><span class="mr-2 text-highlight-600 font-bold">-</span><span class="flex-1 text-justify leading-snug">주요 사역 내용이나 강조하고 싶은 점을 적어주세요.</span></li><li class="flex items-start text-stone-700"><span class="mr-2 text-highlight-600 font-bold">-</span><span class="flex-1 text-justify leading-snug">정기적인 모임이나 행사 소식을 적어주세요.</span></li><li class="flex items-start text-stone-700"><span class="mr-2 text-highlight-600 font-bold">-</span><span class="flex-1 text-justify leading-snug">필요한 물품이나 구체적인 후원 요청 사항을 적으셔도 좋습니다.</span></li><li class="flex items-start text-stone-700"><span class="mr-2 text-highlight-600 font-bold">-</span><span class="flex-1 text-justify leading-snug">항목을 추가하거나 삭제할 수 있습니다.</span></li><li class="flex items-start text-stone-700"><span class="mr-2 text-highlight-600 font-bold">-</span><span class="flex-1 text-justify leading-snug">함께 나누고 싶은 짧은 소식을 입력하세요.</span></li></ul></div></div><div class="relative mb-8 group "><div class="py-2"><h3 class="text-center font-serif text-xl font-bold text-stone-800 mb-6 border-y-2 border-stone-200 py-2">&lt;이번 달 기도 제목&gt;</h3><ol class="space-y-3"><li class="flex items-start text-stone-800"><span class="mr-3 font-serif font-bold text-lg text-mission-600">1.</span><span class="flex-1 text-justify font-medium leading-relaxed">첫 번째 기도제목을 입력해주세요.</span></li><li class="flex items-start text-stone-800"><span class="mr-3 font-serif font-bold text-lg text-mission-600">2.</span><span class="flex-1 text-justify font-medium leading-relaxed">두 번째 기도제목을 입력해주세요.</span></li><li class="flex items-start text-stone-800"><span class="mr-3 font-serif font-bold text-lg text-mission-600">3.</span><span class="flex-1 text-justify font-medium leading-relaxed">가정과 사역을 위한 구체적인 기도를 요청해주세요.</span></li><li class="flex items-start text-stone-800"><span class="mr-3 font-serif font-bold text-lg text-mission-600">4.</span><span class="flex-1 text-justify font-medium leading-relaxed">함께 기도할 수 있도록 나누어주세요.</span></li></ol></div></div></div><footer class="mt-12 pt-8 border-t-2 border-mission-200"><div class="flex flex-col md:flex-row justify-between items-start gap-8"><div class="bg-white p-4 border-l-4 border-mission-800 shadow-sm w-full md:w-auto"><h4 class="font-bold text-mission-900 mb-3 tracking-widest text-sm uppercase border-b pb-1">Contact Me</h4><div class="space-y-2 text-sm text-stone-700"><div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone text-mission-600" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>010-0000-0000</div><div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail text-mission-600" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>email@address.com</div><div class="flex items-center gap-2"><span class="bg-yellow-400 text-[10px] px-1 rounded font-bold text-black">TALK</span>KakaoID</div></div></div><div class="flex-1 bg-gray-200 text-gray-600 text-xs p-4 rounded text-justify">이곳에 보안 관련 주의사항이나 후원 안내 문구를 입력해주세요. (클릭하여 내용을 수정하세요)</div></div></footer>
-  </div>
+<body class="bg-gray-100">
+    <!-- 로딩 중 표시 (JS 실행 전 보임) -->
+    <div id="root" class="min-h-screen flex items-center justify-center text-gray-500">
+        앱을 불러오는 중입니다...
+    </div>
+
+    <!-- 4. React 컴포넌트 코드 -->
+    <!-- 중요: data-presets에서 'env'를 제거하여 Babel이 import 구문을 require로 변환하지 않도록 함 -->
+    <script type="text/babel" data-type="module" data-presets="react">
+        import React, { useState, useEffect } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { 
+            Calendar, MapPin, Users, Coffee, Plane, Wallet, BookOpen, Info, 
+            Clock, CheckCircle, CloudSun, Briefcase, ChevronRight, Home, 
+            CheckSquare, Navigation, Copy, ExternalLink, Church, RefreshCw, 
+            Sparkles, ShoppingBag, Ship 
+        } from 'lucide-react';
+
+        const DhakaDashboard = () => {
+            const [activeTab, setActiveTab] = useState('schedule');
+            const [dDay, setDDay] = useState('');
+            const [mapUrl, setMapUrl] = useState('');
+            const [activeRouteId, setActiveRouteId] = useState('base');
+
+            // --------------------------------------------------------------------------
+            // 데이터 섹션
+            // --------------------------------------------------------------------------
+
+            // 주요 장소 데이터
+            const locations = [
+                {
+                    id: 'base',
+                    type: '숙소',
+                    name: "다카 선교 베이스",
+                    korAddr: "굴샨 1 (South Avenue)",
+                    address: "Level 6, Plot-12, Block - CWS South Avenue, Dhaka 1212",
+                    googleQuery: "Level+6,+Plot-12,+Block+-+CWS+South+Avenue,+Dhaka+1212",
+                    icon: <Home className="w-5 h-5 text-blue-600" />
+                },
+                {
+                    id: 'church',
+                    type: '교회',
+                    name: "선교 센터 (예배처)",
+                    korAddr: "케말 아타튀르크 대로",
+                    address: "44 Kemal Ataturk Ave, Dhaka 1213",
+                    googleQuery: "44+Kemal+Ataturk+Ave,+Dhaka+1213",
+                    icon: <Church className="w-5 h-5 text-indigo-600" />
+                },
+                {
+                    id: 'cafe',
+                    type: '카페',
+                    name: "커피 교육 장소",
+                    korAddr: "펠라니 대로 (Felani Ave)",
+                    address: "51 Felani Ave, Dhaka 1212",
+                    googleQuery: "51+Felani+Ave,+Dhaka+1212",
+                    icon: <Coffee className="w-5 h-5 text-brown-600" />
+                }
+            ];
+
+            // 주요 경로 데이터
+            const routes = [
+                { 
+                    id: 0,
+                    name: "숙소 ↔ 교회 (예배/사역)", 
+                    origin: locations[0].googleQuery, 
+                    dest: locations[1].googleQuery, 
+                    icon: "⛪", 
+                    desc: "금요일 예배 및 사역 이동" 
+                },
+                { 
+                    id: 1,
+                    name: "숙소 ↔ 카페 (커피교육)", 
+                    origin: locations[0].googleQuery, 
+                    dest: locations[2].googleQuery, 
+                    icon: "☕", 
+                    desc: "토~월요일 교육 이동" 
+                },
+                { 
+                    id: 2,
+                    name: "숙소 ↔ 하티르질 호수 (관광)", 
+                    origin: locations[0].googleQuery, 
+                    dest: "Hatirjheel,+Dhaka", 
+                    icon: "🚤", 
+                    desc: "일요일 오후 호수 산책/보트" 
+                },
+                { 
+                    id: 3,
+                    name: "숙소 ↔ 아롱 (쇼핑)", 
+                    origin: locations[0].googleQuery, 
+                    dest: "Aarong+Gulshan,+Dhaka", 
+                    icon: "🛍️", 
+                    desc: "월요일 오후 기념품 쇼핑 (굴샨점)" 
+                },
+                { 
+                    id: 4,
+                    name: "숙소 ↔ 핑크궁전 (올드다카)", 
+                    origin: locations[0].googleQuery, 
+                    dest: "Ahsan+Manzil+Museum,+Dhaka", 
+                    icon: "🏰", 
+                    desc: "화요일 역사 탐방 이동" 
+                },
+                { 
+                    id: 5,
+                    name: "공항 → 숙소 (도착)", 
+                    origin: "Hazrat+Shahjalal+International+Airport", 
+                    dest: locations[0].googleQuery, 
+                    icon: "🛬", 
+                    desc: "입국 시 이동 (약 40분~1시간)" 
+                },
+            ];
+
+            // 일정 데이터
+            const scheduleData = [
+                {
+                    date: "3.26 (목)",
+                    title: "출국 및 도착",
+                    type: "travel",
+                    items: ["인천 출발 🛫", "다카 도착 및 숙소 이동", "짐 풀기 및 휴식"]
+                },
+                {
+                    date: "3.27 (금)",
+                    title: "선교사 연합 사역",
+                    type: "mission",
+                    isKey: true,
+                    items: ["선교사 연합 예배 (교회)", "AI 활용 교육 진행 💻", "저녁 교제"]
+                },
+                {
+                    date: "3.28 (토)",
+                    title: "커피 교육 1일차 & 시내 투어",
+                    type: "mission",
+                    isKey: true,
+                    items: ["기초 이론 및 핸드드립 (~15:00)", "바나니/굴샨 시내 로컬 투어 🏙️", "현지 카페 탐방"]
+                },
+                {
+                    date: "3.29 (일)",
+                    title: "커피 교육 2일차 & 호수",
+                    type: "mission",
+                    isKey: true,
+                    items: ["머신 운용 및 메뉴 실습 (~15:00)", "하티르질 호수 산책/보트 🚤", "팀 미팅"]
+                },
+                {
+                    date: "3.30 (월)",
+                    title: "교육 수료 & 쇼핑",
+                    type: "mission",
+                    isKey: true,
+                    items: ["모의 카페/수료식 (~15:00)", "아롱(Aarong) 기념품 쇼핑 🛍️", "감사 파티"]
+                },
+                {
+                    date: "3.31 (화)",
+                    title: "올드 다카 & 마사지",
+                    type: "free",
+                    items: ["아샨 만질(핑크 궁전)", "재래시장 투어 (릭샤)", "전신 마사지 체험 💆‍♂️"]
+                },
+                {
+                    date: "4.01 (수)",
+                    title: "문화 탐방 & 마사지",
+                    type: "free",
+                    items: ["국회의사당 관람", "랄바흐 요새", "여행 피로 회복 마사지 💆‍♂️"]
+                },
+                {
+                    date: "4.02 (목)",
+                    title: "귀국",
+                    type: "travel",
+                    items: ["기념품 구입", "공항 이동", "인천행 비행기 탑승 ✈️"]
+                }
+            ];
+
+            // Hooks & Handlers
+            useEffect(() => {
+                setMapUrl(`https://maps.google.com/maps?q=${locations[0].googleQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`);
+            }, []);
+
+            useEffect(() => {
+                const today = new Date();
+                const tripDate = new Date('2026-03-26');
+                const diffTime = tripDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                setDDay(diffDays > 0 ? `D-${diffDays}` : diffDays === 0 ? 'D-Day' : `D+${Math.abs(diffDays)}`);
+            }, []);
+
+            const handleCopyAddress = (text) => {
+                navigator.clipboard.writeText(text);
+                alert("주소가 복사되었습니다!");
+            };
+
+            const openGoogleMapsApp = (origin, dest) => {
+                const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=driving`;
+                window.open(url, '_blank');
+            };
+
+            const showRouteOnMap = (routeId, origin, dest) => {
+                setActiveRouteId(routeId);
+                setMapUrl(`https://maps.google.com/maps?saddr=${origin}&daddr=${dest}&output=embed`);
+            };
+
+            const resetMapToBase = () => {
+                setActiveRouteId('base');
+                setMapUrl(`https://maps.google.com/maps?q=${locations[0].googleQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`);
+            };
+
+            // UI Render
+            return (
+                <div className="min-h-screen bg-gray-100 font-sans text-gray-800 pb-20 md:pb-10">
+                    {/* Header */}
+                    <div className="bg-blue-600 rounded-b-[2rem] pt-8 pb-16 px-6 text-white shadow-lg relative overflow-hidden">
+                        <Plane className="absolute top-10 right-6 text-blue-500 opacity-30 w-24 h-24 transform rotate-12" />
+                        <div className="relative z-10 max-w-md mx-auto">
+                            <div className="inline-block bg-blue-500/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-blue-400">
+                                {dDay} Calculator
+                            </div>
+                            <h1 className="text-3xl font-bold mb-1 leading-tight">Dhaka Mission Trip</h1>
+                            <p className="text-blue-100 text-sm mb-6">2026 다카 단기선교 프로젝트</p>
+                            <div className="bg-blue-700/50 backdrop-blur-md rounded-xl p-3 flex items-center">
+                                <div className="bg-blue-500 p-2 rounded-full mr-3">
+                                    <Users className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <p className="text-xs text-blue-200">참여 인원</p>
+                                    <p className="font-bold text-sm">총 3명 (인솔자 포함)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Navigation Tabs */}
+                    <div className="max-w-md mx-auto px-4 -mt-8 relative z-20">
+                        <div className="flex justify-between space-x-2 overflow-x-auto pb-2 scrollbar-hide">
+                            <button 
+                                onClick={() => setActiveTab('schedule')}
+                                className={`flex-1 min-w-[80px] py-3 rounded-xl flex flex-col items-center justify-center shadow-sm text-xs font-bold transition-all ${activeTab === 'schedule' ? 'bg-white text-blue-600 ring-2 ring-blue-100' : 'bg-white/90 text-gray-400 hover:bg-white'}`}
+                            >
+                                <Calendar className="w-5 h-5 mb-1" />
+                                일정표
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('cityinfo')}
+                                className={`flex-1 min-w-[80px] py-3 rounded-xl flex flex-col items-center justify-center shadow-sm text-xs font-bold transition-all ${activeTab === 'cityinfo' ? 'bg-white text-blue-600 ring-2 ring-blue-100' : 'bg-white/90 text-gray-400 hover:bg-white'}`}
+                            >
+                                <MapPin className="w-5 h-5 mb-1" />
+                                지도/동선
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('cost')}
+                                className={`flex-1 min-w-[80px] py-3 rounded-xl flex flex-col items-center justify-center shadow-sm text-xs font-bold transition-all ${activeTab === 'cost' ? 'bg-white text-blue-600 ring-2 ring-blue-100' : 'bg-white/90 text-gray-400 hover:bg-white'}`}
+                            >
+                                <Wallet className="w-5 h-5 mb-1" />
+                                예산
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('check')}
+                                className={`flex-1 min-w-[80px] py-3 rounded-xl flex flex-col items-center justify-center shadow-sm text-xs font-bold transition-all ${activeTab === 'check' ? 'bg-white text-blue-600 ring-2 ring-blue-100' : 'bg-white/90 text-gray-400 hover:bg-white'}`}
+                            >
+                                <CheckSquare className="w-5 h-5 mb-1" />
+                                준비물
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Content */}
+                    <main className="max-w-md mx-auto px-4 mt-4 space-y-4">
+                        {/* SCHEDULE TAB */}
+                        {activeTab === 'schedule' && (
+                            <div className="space-y-4 animate-fadeIn">
+                                <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                                    <h3 className="font-bold text-gray-800 mb-3 flex items-center">
+                                        <Briefcase className="w-5 h-5 mr-2 text-blue-600" />
+                                        주요 사역 및 관광
+                                    </h3>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center bg-blue-50 p-3 rounded-xl">
+                                            <div className="bg-blue-100 text-blue-600 font-bold px-2 py-1 rounded text-xs mr-3">3.27</div>
+                                            <span className="text-sm font-medium text-gray-700">선교사 연합 AI 교육</span>
+                                        </div>
+                                        <div className="bg-emerald-50 p-3 rounded-xl">
+                                            <div className="flex items-center mb-1">
+                                                <div className="bg-emerald-100 text-emerald-600 font-bold px-2 py-1 rounded text-xs mr-3">3.28-30</div>
+                                                <span className="text-sm font-medium text-gray-700">오전 커피 교육 (~15:00)</span>
+                                            </div>
+                                            <div className="ml-[3.5rem] text-xs text-emerald-600 font-medium flex items-center">
+                                                <CloudSun className="w-3 h-3 mr-1" /> 오후 로컬 관광 (쇼핑/호수 등)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2">
+                                    {scheduleData.map((day, idx) => (
+                                        <div key={idx} className={`p-4 ${idx !== scheduleData.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                                            <div className="flex justify-between items-center mb-2">
+                                                <span className={`font-bold text-sm px-2 py-0.5 rounded-md ${day.isKey ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>
+                                                    {day.date}
+                                                </span>
+                                                {day.type === 'mission' && <span className="text-[10px] font-bold text-emerald-500">사역+관광</span>}
+                                            </div>
+                                            <h4 className="font-bold text-gray-800 mb-2">{day.title}</h4>
+                                            <ul className="space-y-1">
+                                                {day.items.map((item, i) => (
+                                                    <li key={i} className="text-xs text-gray-500 flex items-center">
+                                                        <span className="w-1 h-1 bg-gray-300 rounded-full mr-2"></span>
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* CITY INFO & MAP TAB */}
+                        {activeTab === 'cityinfo' && (
+                            <div className="space-y-4 animate-fadeIn">
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                    <div className="h-64 w-full bg-gray-100 relative">
+                                        <div className="absolute top-3 right-3 z-10 flex space-x-2">
+                                            {activeRouteId !== 'base' && (
+                                                <button onClick={resetMapToBase} className="bg-white text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-md flex items-center border border-gray-200">
+                                                    <RefreshCw className="w-3 h-3 mr-1" />
+                                                    숙소 위치 보기
+                                                </button>
+                                            )}
+                                        </div>
+                                        <iframe width="100%" height="100%" style={{border:0}} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" src={mapUrl} title="Accommodation Map"></iframe>
+                                    </div>
+                                    <div className="p-4 border-t border-gray-100">
+                                        <div className="flex items-center justify-between mb-3">
+                                            <h3 className="font-bold text-gray-800 flex items-center">
+                                                <Navigation className="w-5 h-5 mr-2 text-emerald-600" />
+                                                주요 동선 선택
+                                            </h3>
+                                            <span className="text-[10px] text-gray-400">클릭하여 지도에 표시</span>
+                                        </div>
+                                        <div className="space-y-2">
+                                            {routes.map((route) => (
+                                                <div key={route.id} className={`rounded-xl border transition-all cursor-pointer p-3 ${activeRouteId === route.id ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-200' : 'border-gray-100 hover:border-emerald-200 hover:bg-gray-50'}`}>
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center flex-1" onClick={() => showRouteOnMap(route.id, route.origin, route.dest)}>
+                                                            <span className="text-xl mr-3">{route.icon}</span>
+                                                            <div>
+                                                                <span className={`block text-sm font-bold ${activeRouteId === route.id ? 'text-emerald-800' : 'text-gray-700'}`}>
+                                                                    {route.name}
+                                                                </span>
+                                                                <span className="block text-xs text-gray-500 mt-0.5">{route.desc}</span>
+                                                            </div>
+                                                        </div>
+                                                        <button onClick={(e) => { e.stopPropagation(); openGoogleMapsApp(route.origin, route.dest); }} className="ml-2 p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-100 rounded-full transition-colors" title="앱에서 열기">
+                                                            <ExternalLink className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                    <div className="p-5 border-b border-gray-50">
+                                        <h3 className="font-bold text-lg text-gray-800 flex items-center">
+                                            <MapPin className="w-5 h-5 mr-2 text-blue-600" />
+                                            주요 장소 상세 정보
+                                        </h3>
+                                    </div>
+                                    <div className="divide-y divide-gray-50">
+                                        {locations.map((loc, idx) => (
+                                            <div key={idx} className="p-5">
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <div className="flex items-center">
+                                                        {loc.icon}
+                                                        <span className="font-bold text-gray-800 ml-2">{loc.name}</span>
+                                                    </div>
+                                                    <span className={`text-[10px] px-2 py-1 rounded-full font-bold ${loc.type === '숙소' ? 'bg-blue-100 text-blue-600' : loc.type === '교회' ? 'bg-indigo-100 text-indigo-600' : 'bg-amber-100 text-amber-700'}`}>
+                                                        {loc.type}
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-gray-500 mb-2 ml-7 font-medium">{loc.korAddr}</p>
+                                                <div className="ml-7">
+                                                    <p className="text-xs text-gray-400 mb-2 leading-relaxed break-all bg-gray-50 p-2 rounded border border-gray-100">
+                                                        {loc.address}
+                                                    </p>
+                                                    <button onClick={() => handleCopyAddress(loc.address)} className="flex items-center text-xs text-gray-500 hover:text-blue-600 transition-colors">
+                                                        <Copy className="w-3 h-3 mr-1" /> 주소 복사
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* COST TAB */}
+                        {activeTab === 'cost' && (
+                            <div className="space-y-4 animate-fadeIn">
+                                <div className="bg-emerald-500 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                                    <Wallet size={100} className="absolute top-0 right-0 p-4 opacity-10" />
+                                    <p className="text-emerald-100 text-sm font-medium mb-1">1인 예상 비용 (항공권 제외)</p>
+                                    <h2 className="text-3xl font-bold mb-4">₩ 160,000</h2>
+                                    <div className="flex justify-between items-end border-t border-emerald-400/50 pt-4">
+                                        <span className="text-sm text-emerald-100">총 예산 (3인 기준)</span>
+                                        <span className="text-xl font-bold">₩ 480,000</span>
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-gray-100 flex items-center">
+                                        <BookOpen className="w-5 h-5 mr-2 text-gray-400" />
+                                        <h3 className="font-bold text-gray-800">세부 산출 내역 (현지 3인)</h3>
+                                    </div>
+                                    <div className="divide-y divide-gray-50">
+                                        <div className="p-5 flex justify-between items-center">
+                                            <div>
+                                                <p className="font-bold text-gray-800 text-sm">식비</p>
+                                                <p className="text-xs text-gray-400 mt-0.5">전 일정 현지식 및 특식</p>
+                                            </div>
+                                            <span className="font-bold text-emerald-600 text-sm">195,000원</span>
+                                        </div>
+                                        <div className="p-5 flex justify-between items-center">
+                                            <div>
+                                                <p className="font-bold text-gray-800 text-sm">교통비</p>
+                                                <p className="text-xs text-gray-400 mt-0.5">릭샤 및 우버 이동</p>
+                                            </div>
+                                            <span className="font-bold text-emerald-600 text-sm">120,000원</span>
+                                        </div>
+                                        <div className="p-5 flex justify-between items-center">
+                                            <div>
+                                                <p className="font-bold text-gray-800 text-sm">예비비</p>
+                                                <p className="text-xs text-gray-400 mt-0.5">간식 및 비상금</p>
+                                            </div>
+                                            <span className="font-bold text-emerald-600 text-sm">60,000원</span>
+                                        </div>
+                                        <div className="p-5 flex justify-between items-center bg-indigo-50/50">
+                                            <div className="flex items-center">
+                                                <Sparkles className="w-4 h-4 mr-2 text-indigo-500" />
+                                                <div>
+                                                    <p className="font-bold text-indigo-800 text-sm">마사지/휴식 (2회)</p>
+                                                    <p className="text-xs text-indigo-400 mt-0.5">피로 회복 (3인 x 2회)</p>
+                                                </div>
+                                            </div>
+                                            <span className="font-bold text-indigo-600 text-sm">105,000원</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* CHECKLIST TAB */}
+                        {activeTab === 'check' && (
+                            <div className="space-y-4 animate-fadeIn">
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                    <div className="bg-indigo-50 px-5 py-4 border-b border-indigo-100">
+                                        <h3 className="font-bold text-indigo-800 flex items-center">
+                                            <CheckSquare className="w-5 h-5 mr-2" />
+                                            필수 준비물 리스트
+                                        </h3>
+                                    </div>
+                                    <div className="divide-y divide-gray-50 p-2">
+                                        {["비자 (도착비자 확인)", "모기 기피제 (필수)", "개인 물통 & 정수 알약", "얇은 긴팔 (보수적 의상)", "교육용 노트북/태블릿", "커피 드리퍼 세트", "상비약 (지사제 등)"].map((item, idx) => (
+                                            <label key={idx} className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+                                                <input type="checkbox" className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-300 mr-3" />
+                                                <span className="text-sm text-gray-700">{item}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100 text-sm text-orange-800">
+                                    <strong>⚠️ 주의사항:</strong> 식수는 반드시 밀봉된 생수만 드시고, 얼음이 들어간 음료는 피하세요.
+                                </div>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<DhakaDashboard />);
+    </script>
 </body>
 </html>
