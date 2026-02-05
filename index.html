@@ -63,7 +63,7 @@
         } from 'lucide-react';
 
         const DhakaDashboard = () => {
-            const [activeTab, setActiveTab] = useState('cityinfo'); // 지도 탭을 기본으로 설정
+            const [activeTab, setActiveTab] = useState('schedule'); // 일정표 탭을 기본으로 설정
             const [dDay, setDDay] = useState('');
             const [mapUrl, setMapUrl] = useState('');
             const [activeRouteId, setActiveRouteId] = useState(0); // 첫 번째 경로(숙소-교회)를 기본 활성화
@@ -80,7 +80,7 @@
                     name: "다카 선교 베이스",
                     korAddr: "굴샨 1 (South Avenue)",
                     address: "Level 6, Plot-12, Block - CWS South Avenue, Dhaka 1212",
-                    googleQuery: "Level+6,+Plot-12,+Block+-+CWS+South+Avenue,+Dhaka+1212",
+                    googleQuery: "Plot+12,+Block+CWS,+South+Avenue,+Gulshan+1,+Dhaka",
                     icon: <Home className="w-5 h-5 text-blue-600" />
                 },
                 {
@@ -551,13 +551,11 @@
                                         ))}
                                     </div>
                                 </div>
-                                
                                 <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100 text-sm text-orange-800">
                                     <strong>⚠️ 주의사항:</strong> 식수는 반드시 밀봉된 생수만 드시고, 얼음이 들어간 음료는 피하세요.
                                 </div>
                             </div>
                         )}
-
                     </main>
                 </div>
             );
