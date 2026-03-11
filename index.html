@@ -169,12 +169,12 @@
                 },
                 {
                     date: "3.27 (금)",
-                    title: "현지 적응 및 탐방",
-                    type: "free",
-                    isKey: false,
+                    title: "선교교회 예배 및 사역 준비",
+                    type: "mission",
+                    isKey: true,
                     items: [
-                        "오전 휴식 및 자유시간", 
-                        "마트 방문 및 지역 탐방 (14:00~)", 
+                        "선교교회 예배 참석 및 설교 (10:00~13:00) ⛪", 
+                        "마트 방문 (쿨러 재료 구입) 🛒", 
                         "저녁 교제 및 나눔"
                     ]
                 },
@@ -321,7 +321,7 @@
                                 </div>
                                 <div>
                                     <p className="text-xs text-blue-200">참여 인원</p>
-                                    <p className="font-bold text-sm">총 3명 (인솔자 포함)</p>
+                                    <p className="font-bold text-sm">총 2명</p>
                                 </div>
                             </div>
                         </div>
@@ -483,17 +483,17 @@
                                 <div className="bg-emerald-500 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
                                     <div className="absolute top-0 right-0 p-4 opacity-10"><Wallet size={100} /></div>
                                     <p className="text-emerald-100 text-sm font-medium mb-1">1인 예상 비용 (항공권 제외)</p>
-                                    <h2 className="text-3xl font-bold mb-4">₩ 160,000</h2>
+                                    <h2 className="text-3xl font-bold mb-4">₩ 350,000</h2>
                                     <div className="flex justify-between items-end border-t border-emerald-400/50 pt-4">
-                                        <span className="text-sm text-emerald-100">총 예산 (3인 기준)</span>
-                                        <span className="text-xl font-bold">₩ 480,000</span>
+                                        <span className="text-sm text-emerald-100">총 예산 (2인 기준)</span>
+                                        <span className="text-xl font-bold">₩ 700,000</span>
                                     </div>
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                                     <div className="px-5 py-4 border-b border-gray-100 flex items-center">
                                         <BookOpen className="w-5 h-5 mr-2 text-gray-400" />
-                                        <h3 className="font-bold text-gray-800">세부 산출 내역 (현지 3인)</h3>
+                                        <h3 className="font-bold text-gray-800">세부 산출 내역 (현지 2인)</h3>
                                     </div>
                                     <div className="divide-y divide-gray-50">
                                         <div className="p-5 flex justify-between items-center">
@@ -501,31 +501,31 @@
                                                 <p className="font-bold text-gray-800 text-sm">식비</p>
                                                 <p className="text-xs text-gray-400 mt-0.5">전 일정 현지식 및 특식</p>
                                             </div>
-                                            <span className="font-bold text-emerald-600 text-sm">195,000원</span>
+                                            <span className="font-bold text-emerald-600 text-sm">400,000원</span>
                                         </div>
                                         <div className="p-5 flex justify-between items-center">
                                             <div>
                                                 <p className="font-bold text-gray-800 text-sm">교통비</p>
                                                 <p className="text-xs text-gray-400 mt-0.5">릭샤 및 우버 이동</p>
                                             </div>
-                                            <span className="font-bold text-emerald-600 text-sm">120,000원</span>
+                                            <span className="font-bold text-emerald-600 text-sm">100,000원</span>
                                         </div>
                                         <div className="p-5 flex justify-between items-center">
                                             <div>
                                                 <p className="font-bold text-gray-800 text-sm">예비비</p>
                                                 <p className="text-xs text-gray-400 mt-0.5">간식 및 비상금</p>
                                             </div>
-                                            <span className="font-bold text-emerald-600 text-sm">60,000원</span>
+                                            <span className="font-bold text-emerald-600 text-sm">100,000원</span>
                                         </div>
                                         <div className="p-5 flex justify-between items-center bg-indigo-50/50">
                                             <div className="flex items-center">
                                                 <Sparkles className="w-4 h-4 mr-2 text-indigo-500" />
                                                 <div>
                                                     <p className="font-bold text-indigo-800 text-sm">마사지/휴식 (2회)</p>
-                                                    <p className="text-xs text-indigo-400 mt-0.5">피로 회복 (3인 x 2회)</p>
+                                                    <p className="text-xs text-indigo-400 mt-0.5">피로 회복 (2인 x 2회)</p>
                                                 </div>
                                             </div>
-                                            <span className="font-bold text-indigo-600 text-sm">105,000원</span>
+                                            <span className="font-bold text-indigo-600 text-sm">100,000원</span>
                                         </div>
                                     </div>
                                 </div>
@@ -542,8 +542,15 @@
                                             필수 준비물 리스트
                                         </h3>
                                     </div>
-                                    <div className="divide-y divide-gray-50 p-2">
-                                        {["비자 (도착비자 확인)", "모기 기피제 (필수)", "개인 물통 & 정수 알약", "얇은 긴팔 (보수적 의상)", "교육용 노트북/태블릿", "커피 드리퍼 세트", "상비약 (지사제 등)"].map((item, idx) => (
+                                    <div className="divide-y divide-gray-50 p-2 grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                        {[
+                                            "여권", "비행기표 발권", "비자 (도착비자 확인)", "여행자보험", "달러", "로밍", "유심", 
+                                            "교육용 맥북/태블릿", "수업재료", "원두", "글라인더(코만단테)", "드리퍼 2개",
+                                            "상비약(타이레놀,지사제,대일밴드,신경통)", "모기기피제", "개인 물통 & 정수 알약", "충전기/여행콘센트",
+                                            "바람막이", "얇은 긴팔 (보수적 의상)", "토시", "선글라스", "모자", "안대", "목베개", 
+                                            "손수건", "쿨타월", "속옷 8벌", "티셔츠 8벌", "반바지 3벌", "긴바지 1벌", "셔츠 1벌", 
+                                            "크록스", "면도기", "세면도구", "썬크림"
+                                        ].map((item, idx) => (
                                             <label key={idx} className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
                                                 <input type="checkbox" className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-300 mr-3" />
                                                 <span className="text-sm text-gray-700">{item}</span>
