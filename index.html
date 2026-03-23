@@ -9,7 +9,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- 2. React & ReactDOM & Lucide Icons (Import Map) -->
-    <!-- 브라우저에서 모듈을 직접 로드하기 위한 설정입니다 -->
     <script type="importmap">
     {
         "imports": {
@@ -42,7 +41,7 @@
     </style>
 </head>
 <body class="bg-gray-100">
-    <!-- 로딩 표시 (React 앱이 마운트되기 전 표시됨) -->
+    <!-- 로딩 표시 -->
     <div id="root" class="min-h-screen flex items-center justify-center text-gray-500 font-sans">
         <div class="text-center">
             <p class="text-lg mb-2">선교 대시보드 로딩 중...</p>
@@ -51,7 +50,6 @@
     </div>
 
     <!-- 4. React 컴포넌트 코드 -->
-    <!-- data-presets="react"만 사용하여 불필요한 변환 오류 방지 -->
     <script type="text/babel" data-type="module" data-presets="react">
         import React, { useState, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
@@ -63,29 +61,29 @@
         } from 'lucide-react';
 
         const DhakaDashboard = () => {
-            const [activeTab, setActiveTab] = useState('schedule'); // 일정표 탭을 기본으로 설정
+            const [activeTab, setActiveTab] = useState('schedule'); // 기본 탭: 일정표
             const [dDay, setDDay] = useState('');
             const [mapUrl, setMapUrl] = useState('');
-            const [activeRouteId, setActiveRouteId] = useState(0); // 첫 번째 경로(숙소-교회)를 기본 활성화
+            const [activeRouteId, setActiveRouteId] = useState(0);
 
             // --------------------------------------------------------------------------
             // 데이터 섹션
             // --------------------------------------------------------------------------
 
-            // 주요 장소 데이터
+            // 주요 장소 데이터 (숙소 주소 확정 반영)
             const locations = [
                 {
                     id: 'base',
                     type: '숙소',
-                    name: "다카 선교 베이스",
-                    korAddr: "굴샨 1 (South Avenue)",
-                    address: "Level 6, Plot-12, Block - CWS South Avenue, Dhaka 1212",
-                    googleQuery: "Plot+12,+Block+CWS,+South+Avenue,+Gulshan+1,+Dhaka",
+                    name: "Bengal Blueberry",
+                    korAddr: "굴샨 2 (Gulshan-2)",
+                    address: "House # 1/A, Road # 90, Gulshan-2, Dhaka 1212",
+                    googleQuery: "Bengal+Blueberry,+Gulshan-2,+Dhaka",
                     icon: <Home className="w-5 h-5 text-blue-600" />
                 },
                 {
                     id: 'church',
-                    type: '교회 (AI교육)',
+                    type: '교회',
                     name: "선교 센터 (예배/AI교육)",
                     korAddr: "케말 아타튀르크 대로",
                     address: "44 Kemal Ataturk Ave, Dhaka 1213",
@@ -107,7 +105,7 @@
             const routes = [
                 { 
                     id: 0,
-                    name: "숙소 ↔ 교회 (AI교육/예배)", 
+                    name: "숙소 ↔ 교회 (예배/AI교육)", 
                     origin: locations[0].googleQuery, 
                     dest: locations[1].googleQuery, 
                     icon: "⛪", 
@@ -258,13 +256,11 @@
             // Hooks & Handlers
             // --------------------------------------------------------------------------
 
-            // 초기 맵 URL 설정 (첫 번째 경로 표시)
             useEffect(() => {
                 const defaultRoute = routes[0];
                 setMapUrl(`https://maps.google.com/maps?saddr=${defaultRoute.origin}&daddr=${defaultRoute.dest}&output=embed`);
             }, []);
 
-            // D-Day 계산
             useEffect(() => {
                 const today = new Date();
                 const tripDate = new Date('2026-03-26');
@@ -305,7 +301,7 @@
             return (
                 <div className="min-h-screen bg-gray-100 font-sans text-gray-800 pb-20 md:pb-10">
                     
-                    {/* Header Section (Blue Card Style) */}
+                    {/* Header Section */}
                     <div className="bg-blue-600 rounded-b-[2rem] pt-8 pb-16 px-6 text-white shadow-lg relative overflow-hidden">
                         <Plane className="absolute top-10 right-6 text-blue-500 opacity-30 w-24 h-24 transform rotate-12" />
                         <div className="relative z-10 max-w-md mx-auto">
@@ -321,13 +317,13 @@
                                 </div>
                                 <div>
                                     <p className="text-xs text-blue-200">참여 인원</p>
-                                    <p className="font-bold text-sm">총 2명</p>
+                                    <p className="font-bold text-sm">총 2명 (AI/커피 교육팀)</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Navigation Tabs (Floating) */}
+                    {/* Navigation Tabs */}
                     <div className="max-w-md mx-auto px-4 -mt-8 relative z-20">
                         <div className="flex justify-between space-x-2 overflow-x-auto pb-2 scrollbar-hide">
                             <button onClick={() => setActiveTab('schedule')} className={`flex-1 min-w-[80px] py-3 rounded-xl flex flex-col items-center justify-center shadow-sm text-xs font-bold transition-all ${activeTab === 'schedule' ? 'bg-white text-blue-600 ring-2 ring-blue-100' : 'bg-white/90 text-gray-400 hover:bg-white'}`}>
@@ -358,12 +354,16 @@
                                     </h3>
                                     <div className="space-y-3">
                                         <div className="flex items-center bg-blue-50 p-3 rounded-xl">
-                                            <div className="bg-blue-100 text-blue-600 font-bold px-2 py-1 rounded text-xs mr-3">3.28</div>
+                                            <div className="bg-blue-100 text-blue-600 font-bold px-2 py-1 rounded text-xs mr-3">3.27</div>
+                                            <span className="text-sm font-medium text-gray-700">예배 설교 및 마트 방문</span>
+                                        </div>
+                                        <div className="flex items-center bg-indigo-50 p-3 rounded-xl">
+                                            <div className="bg-indigo-100 text-indigo-600 font-bold px-2 py-1 rounded text-xs mr-3">3.28</div>
                                             <span className="text-sm font-medium text-gray-700">AI 활용 교육 (13:00)</span>
                                         </div>
                                         <div className="bg-emerald-50 p-3 rounded-xl">
-                                            <div className="flex items-center mb-1">
-                                                <div className="bg-emerald-100 text-emerald-600 font-bold px-2 py-1 rounded text-xs mr-3">3.29-4.01</div>
+                                            <div className="flex items-center">
+                                                <div className="bg-emerald-100 text-emerald-600 font-bold px-2 py-1 rounded text-xs mr-3">3.29-4.02</div>
                                                 <span className="text-sm font-medium text-gray-700">장애인센터 집중 교육 (통기)</span>
                                             </div>
                                         </div>
