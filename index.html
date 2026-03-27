@@ -70,7 +70,7 @@
             // 데이터 섹션
             // --------------------------------------------------------------------------
 
-            // 주요 장소 데이터 (숙소 주소 확정 반영)
+            // 주요 장소 데이터 (다카 한인교회 주소 반영)
             const locations = [
                 {
                     id: 'base',
@@ -84,10 +84,10 @@
                 {
                     id: 'church',
                     type: '교회',
-                    name: "선교 센터 (예배/AI교육)",
-                    korAddr: "케말 아타튀르크 대로",
-                    address: "44 Kemal Ataturk Ave, Dhaka 1213",
-                    googleQuery: "44+Kemal+Ataturk+Ave,+Dhaka+1213",
+                    name: "다카 한인교회 (예배/AI교육)",
+                    korAddr: "다카 한인교회",
+                    address: "Korean Church, Dhaka, Bangladesh",
+                    googleQuery: "Korean+Church,+Dhaka,+Bangladesh",
                     icon: <Church className="w-5 h-5 text-indigo-600" />
                 },
                 {
@@ -105,7 +105,7 @@
             const routes = [
                 { 
                     id: 0,
-                    name: "숙소 ↔ 교회 (예배/AI교육)", 
+                    name: "숙소 ↔ 한인교회 (예배/AI교육)", 
                     origin: locations[0].googleQuery, 
                     dest: locations[1].googleQuery, 
                     icon: "⛪", 
@@ -167,11 +167,11 @@
                 },
                 {
                     date: "3.27 (금)",
-                    title: "선교교회 예배 및 사역 준비",
+                    title: "한인교회 예배 및 사역 준비",
                     type: "mission",
                     isKey: true,
                     items: [
-                        "선교교회 예배 참석 및 설교 (10:00~13:00) ⛪", 
+                        "다카 한인교회 예배 참석 및 설교 (10:00~13:00) ⛪", 
                         "마트 방문 (쿨러 재료 구입) 🛒", 
                         "저녁 교제 및 나눔"
                     ]
@@ -573,3 +573,5 @@
     </script>
 </body>
 </html>
+
+
