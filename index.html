@@ -72,25 +72,34 @@
             // 데이터 섹션
             // --------------------------------------------------------------------------
 
-            // 주요 장소 데이터 (숙소/교육장 주소는 확정 전 - 확정되는 대로 업데이트 필요)
+            // 주요 장소 데이터
             const locations = [
                 {
                     id: 'base',
                     type: '숙소',
-                    name: "숙소 (주소 확정 예정)",
-                    korAddr: "비엔티안(Vientiane) 시내 - TBD",
-                    address: "주소 미정 - 확정되는 대로 업데이트 예정",
-                    googleQuery: "Vientiane,+Laos",
+                    name: "숙소",
+                    korAddr: "비엔티안 시내",
+                    address: "Rue Chanthakhoumane, Vientiane 01000, Laos",
+                    googleQuery: "Rue+Chanthakhoumane,+Vientiane+01000,+Laos",
                     icon: <Home className="w-5 h-5 text-blue-600" />
                 },
                 {
-                    id: 'venue',
-                    type: '교육장소',
-                    name: "AI 마스터클래스 교육장 (주소 확정 예정)",
-                    korAddr: "비엔티안 - TBD",
-                    address: "주소 미정 - 확정되는 대로 업데이트 예정",
-                    googleQuery: "Vientiane,+Laos",
+                    id: 'venueAM',
+                    type: '오전 교육장',
+                    name: "AI 마스터클래스 - 오전반",
+                    korAddr: "농비앙캄 마을 (Nongviangkham Village)",
+                    address: "309 Nongviangkham Village, Vientiane, Laos",
+                    googleQuery: "309+Nongviangkham+Village,+Vientiane,+Laos",
                     icon: <Laptop className="w-5 h-5 text-indigo-600" />
+                },
+                {
+                    id: 'venuePM',
+                    type: '저녁 교육장',
+                    name: "AI 마스터클래스 - 저녁반",
+                    korAddr: "사팡모 마을 (Ban Sapangmore)",
+                    address: "Ban Sapangmore, Vientiane, Laos",
+                    googleQuery: "Ban+Sapangmore,+Vientiane,+Laos",
+                    icon: <Laptop className="w-5 h-5 text-purple-600" />
                 },
                 {
                     id: 'airport',
@@ -108,21 +117,29 @@
                 {
                     id: 0,
                     name: "공항 ↔ 숙소",
-                    origin: locations[2].googleQuery,
+                    origin: locations[3].googleQuery,
                     dest: locations[0].googleQuery,
                     icon: "🛬",
                     desc: "출입국 이동 (8/30, 9/5)"
                 },
                 {
                     id: 1,
-                    name: "숙소 ↔ 교육장 (AI 마스터클래스)",
+                    name: "숙소 ↔ 오전 교육장 (Nongviangkham)",
                     origin: locations[0].googleQuery,
                     dest: locations[1].googleQuery,
                     icon: "💻",
-                    desc: "8/31~9/2 교육 기간 이동"
+                    desc: "8/31~9/2 오전반 이동"
                 },
                 {
                     id: 2,
+                    name: "숙소 ↔ 저녁 교육장 (Ban Sapangmore)",
+                    origin: locations[0].googleQuery,
+                    dest: locations[2].googleQuery,
+                    icon: "🌙",
+                    desc: "8/31~9/2 저녁반 이동"
+                },
+                {
+                    id: 3,
                     name: "숙소 ↔ 빠뚜사이 (개선문)",
                     origin: locations[0].googleQuery,
                     dest: "Patuxai,+Vientiane,+Laos",
@@ -130,7 +147,7 @@
                     desc: "관광 참고 (9/3~9/4 추천)"
                 },
                 {
-                    id: 3,
+                    id: 4,
                     name: "숙소 ↔ 탓루앙 사원",
                     origin: locations[0].googleQuery,
                     dest: "Pha+That+Luang,+Vientiane,+Laos",
@@ -138,7 +155,7 @@
                     desc: "관광 참고 (라오스 상징 사원)"
                 },
                 {
-                    id: 4,
+                    id: 5,
                     name: "숙소 ↔ 메콩강변",
                     origin: locations[0].googleQuery,
                     dest: "Mekong+Riverside,+Vientiane,+Laos",
@@ -165,7 +182,8 @@
                     type: "mission",
                     isKey: true,
                     items: [
-                        "교육 진행 (09:00~15:00) 💻",
+                        "오전반 - Nongviangkham Village 💻",
+                        "저녁반 - Ban Sapangmore 💻",
                         "AI 이해하기 - 개념 및 현장 활용",
                         "제미나이 사용하기 & 프롬프트 활용법",
                         "랜딩페이지 만들기 & 깃허브 배포",
@@ -178,7 +196,8 @@
                     type: "mission",
                     isKey: true,
                     items: [
-                        "교육 진행 (09:00~15:00) 💻",
+                        "오전반 - Nongviangkham Village 💻",
+                        "저녁반 - Ban Sapangmore 💻",
                         "바이브 코딩이란 무엇인가",
                         "AI Studio로 앱 만들기",
                         "안티그래비티 / 클로드 코드 활용",
@@ -191,7 +210,8 @@
                     type: "mission",
                     isKey: true,
                     items: [
-                        "교육 진행 (09:00~15:00) 💻",
+                        "오전반 - Nongviangkham Village 💻",
+                        "저녁반 - Ban Sapangmore 💻",
                         "마크다운 기초",
                         "볼트 구조 짜기 - 제텔카스텐 & PARA & CODE",
                         "생성형 AI와 함께 볼트 구조 짜기",
@@ -436,7 +456,7 @@
                                                         {loc.icon}
                                                         <span className="font-bold text-gray-800 ml-2">{loc.name}</span>
                                                     </div>
-                                                    <span className={`text-[10px] px-2 py-1 rounded-full font-bold ${loc.type === '숙소' ? 'bg-blue-100 text-blue-600' : loc.id === 'venue' ? 'bg-indigo-100 text-indigo-600' : 'bg-amber-100 text-amber-700'}`}>
+                                                    <span className={`text-[10px] px-2 py-1 rounded-full font-bold ${loc.type === '숙소' ? 'bg-blue-100 text-blue-600' : (loc.id === 'venueAM' || loc.id === 'venuePM') ? 'bg-indigo-100 text-indigo-600' : 'bg-amber-100 text-amber-700'}`}>
                                                         {loc.type}
                                                     </span>
                                                 </div>
