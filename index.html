@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dhaka Mission Dashboard</title>
-    
+    <title>Laos Mission Dashboard</title>
+
     <!-- 1. Tailwind CSS (스타일링) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- 2. React & ReactDOM & Lucide Icons (Import Map) -->
     <script type="importmap">
     {
@@ -18,10 +18,10 @@
         }
     }
     </script>
-    
+
     <!-- 3. Babel (브라우저에서 JSX 실행) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+
     <style>
         /* 커스텀 스타일: 스크롤바 숨기기 및 애니메이션 */
         .scrollbar-hide::-webkit-scrollbar {
@@ -44,7 +44,7 @@
     <!-- 로딩 표시 -->
     <div id="root" class="min-h-screen flex items-center justify-center text-gray-500 font-sans">
         <div class="text-center">
-            <p class="text-lg mb-2">선교 대시보드 로딩 중...</p>
+            <p class="text-lg mb-2">라오스 선교 대시보드 로딩 중...</p>
             <p class="text-xs text-gray-400">잠시만 기다려주세요</p>
         </div>
     </div>
@@ -53,14 +53,14 @@
     <script type="text/babel" data-type="module" data-presets="react">
         import React, { useState, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
-        import { 
-            Calendar, MapPin, Users, Coffee, Plane, Wallet, BookOpen, Info, 
-            Clock, CheckCircle, CloudSun, Briefcase, ChevronRight, Home, 
-            CheckSquare, Navigation, Copy, ExternalLink, Church, RefreshCw, 
-            Sparkles, ShoppingBag, Ship, Loader 
+        import {
+            Calendar, MapPin, Users, Coffee, Plane, Wallet, BookOpen, Info,
+            Clock, CheckCircle, CloudSun, Briefcase, ChevronRight, Home,
+            CheckSquare, Navigation, Copy, ExternalLink, Church, RefreshCw,
+            Sparkles, ShoppingBag, Ship, Loader, Phone, MessageCircle, Laptop
         } from 'lucide-react';
 
-        const DhakaDashboard = () => {
+        const LaosDashboard = () => {
             const [activeTab, setActiveTab] = useState('schedule'); // 기본 탭: 일정표
             const [dDay, setDDay] = useState('');
             const [mapUrl, setMapUrl] = useState('');
@@ -70,183 +70,159 @@
             // 데이터 섹션
             // --------------------------------------------------------------------------
 
-            // 주요 장소 데이터 (다카 한인교회 주소 반영)
+            // 주요 장소 데이터 (숙소/교육장 주소는 확정 전 - 확정되는 대로 업데이트 필요)
             const locations = [
                 {
                     id: 'base',
                     type: '숙소',
-                    name: "Bengal Blueberry",
-                    korAddr: "굴샨 2 (Gulshan-2)",
-                    address: "House # 1/A, Road # 90, Gulshan-2, Dhaka 1212",
-                    googleQuery: "Bengal+Blueberry,+Gulshan-2,+Dhaka",
+                    name: "숙소 (주소 확정 예정)",
+                    korAddr: "비엔티안(Vientiane) 시내 - TBD",
+                    address: "주소 미정 - 확정되는 대로 업데이트 예정",
+                    googleQuery: "Vientiane,+Laos",
                     icon: <Home className="w-5 h-5 text-blue-600" />
                 },
                 {
-                    id: 'church',
-                    type: '교회',
-                    name: "다카 한인교회 (예배/AI교육)",
-                    korAddr: "다카 한인교회",
-                    address: "Korean Church, Dhaka, Bangladesh",
-                    googleQuery: "Korean+Church,+Dhaka,+Bangladesh",
-                    icon: <Church className="w-5 h-5 text-indigo-600" />
+                    id: 'venue',
+                    type: '교육장소',
+                    name: "AI 마스터클래스 교육장 (주소 확정 예정)",
+                    korAddr: "비엔티안 - TBD",
+                    address: "주소 미정 - 확정되는 대로 업데이트 예정",
+                    googleQuery: "Vientiane,+Laos",
+                    icon: <Laptop className="w-5 h-5 text-indigo-600" />
                 },
                 {
-                    id: 'center',
-                    type: '교육센터',
-                    name: "장애인 교육 센터 (커피교육)",
-                    korAddr: "가지푸르 통기 에르샤드나가르",
-                    address: "Gazipur Tongi Ershadnagar, Lal building",
-                    googleQuery: "Gazipur+Tongi+Ershadnagar,+Lal+building",
-                    icon: <Users className="w-5 h-5 text-brown-600" />
+                    id: 'airport',
+                    type: '공항',
+                    name: "Wattay International Airport (VTE)",
+                    korAddr: "왓타이 국제공항",
+                    address: "Wattay International Airport, Vientiane, Laos",
+                    googleQuery: "Wattay+International+Airport,+Vientiane,+Laos",
+                    icon: <Plane className="w-5 h-5 text-amber-600" />
                 }
             ];
 
-            // 주요 경로 데이터
+            // 주요 경로 데이터 (관광지 경로는 참고용 추천 경로)
             const routes = [
-                { 
+                {
                     id: 0,
-                    name: "숙소 ↔ 한인교회 (예배/AI교육)", 
-                    origin: locations[0].googleQuery, 
-                    dest: locations[1].googleQuery, 
-                    icon: "⛪", 
-                    desc: "금/토요일 사역 이동" 
+                    name: "공항 ↔ 숙소",
+                    origin: locations[2].googleQuery,
+                    dest: locations[0].googleQuery,
+                    icon: "🛬",
+                    desc: "출입국 이동 (8/30, 9/5)"
                 },
-                { 
+                {
                     id: 1,
-                    name: "숙소 ↔ 장애인 센터 (통기)", 
-                    origin: locations[0].googleQuery, 
-                    dest: locations[2].googleQuery, 
-                    icon: "🏫", 
-                    desc: "일~수요일 교육 이동 (거리 주의)" 
+                    name: "숙소 ↔ 교육장 (AI 마스터클래스)",
+                    origin: locations[0].googleQuery,
+                    dest: locations[1].googleQuery,
+                    icon: "💻",
+                    desc: "8/31~9/2 교육 기간 이동"
                 },
-                { 
+                {
                     id: 2,
-                    name: "숙소 ↔ 하티르질 호수", 
-                    origin: locations[0].googleQuery, 
-                    dest: "Hatirjheel,+Dhaka", 
-                    icon: "🚤", 
-                    desc: "휴식 및 산책 경로" 
+                    name: "숙소 ↔ 빠뚜사이 (개선문)",
+                    origin: locations[0].googleQuery,
+                    dest: "Patuxai,+Vientiane,+Laos",
+                    icon: "🗼",
+                    desc: "관광 참고 (9/3~9/4 추천)"
                 },
-                { 
+                {
                     id: 3,
-                    name: "숙소 ↔ 아롱 (쇼핑)", 
-                    origin: locations[0].googleQuery, 
-                    dest: "Aarong+Gulshan,+Dhaka", 
-                    icon: "🛍️", 
-                    desc: "기념품 쇼핑 (굴샨점)" 
+                    name: "숙소 ↔ 탓루앙 사원",
+                    origin: locations[0].googleQuery,
+                    dest: "Pha+That+Luang,+Vientiane,+Laos",
+                    icon: "🛕",
+                    desc: "관광 참고 (라오스 상징 사원)"
                 },
-                { 
+                {
                     id: 4,
-                    name: "숙소 ↔ 핑크궁전 (올드다카)", 
-                    origin: locations[0].googleQuery, 
-                    dest: "Ahsan+Manzil+Museum,+Dhaka", 
-                    icon: "🏰", 
-                    desc: "역사 탐방 이동" 
-                },
-                { 
-                    id: 5,
-                    name: "공항 ↔ 숙소", 
-                    origin: "Hazrat+Shahjalal+International+Airport", 
-                    dest: locations[0].googleQuery, 
-                    icon: "🛬", 
-                    desc: "출입국 이동 (약 40분~1시간)" 
+                    name: "숙소 ↔ 메콩강변",
+                    origin: locations[0].googleQuery,
+                    dest: "Mekong+Riverside,+Vientiane,+Laos",
+                    icon: "🌅",
+                    desc: "휴식 및 산책 (야시장/일몰)"
                 },
             ];
 
             // 일정 데이터
             const scheduleData = [
                 {
-                    date: "3.26 (목)",
-                    title: "출국 (인천->광저우->다카)",
+                    date: "8.30 (일)",
+                    title: "출국 (인천 → 비엔티안)",
                     type: "travel",
                     items: [
-                        "인천 출발 (14:50) 🛫", 
-                        "광저우(바이윈) 도착(17:55) / 출발(19:25)", 
-                        "다카 도착 (21:50) & 숙소 이동"
+                        "인천 출발 20:20 (제주항공 7C2401) 🛫",
+                        "비엔티안(VTE) 도착 23:50",
+                        "숙소 이동 및 취침"
                     ]
                 },
                 {
-                    date: "3.27 (금)",
-                    title: "한인교회 예배 및 사역 준비",
+                    date: "8.31 (월)",
+                    title: "AI 마스터클래스 Day1 - AI 기초 & 첫 번째 도구들",
                     type: "mission",
                     isKey: true,
                     items: [
-                        "다카 한인교회 예배 참석 및 설교 (10:00~13:00) ⛪", 
-                        "마트 방문 (쿨러 재료 구입) 🛒", 
+                        "교육 진행 (09:00~15:00) 💻",
+                        "AI 이해하기 - 개념 및 현장 활용",
+                        "제미나이 사용하기 & 프롬프트 활용법",
+                        "랜딩페이지 만들기 & 깃허브 배포",
+                        "노트북LM 활용하기"
+                    ]
+                },
+                {
+                    date: "9.1 (화)",
+                    title: "AI 마스터클래스 Day2 - 바이브 코딩 & 나만의 앱 만들기",
+                    type: "mission",
+                    isKey: true,
+                    items: [
+                        "교육 진행 (09:00~15:00) 💻",
+                        "바이브 코딩이란 무엇인가",
+                        "AI Studio로 앱 만들기",
+                        "안티그래비티 / 클로드 코드 활용",
+                        "나만의 홈페이지 만들기"
+                    ]
+                },
+                {
+                    date: "9.2 (수)",
+                    title: "AI 마스터클래스 Day3 - 옵시디언으로 지식 창고 만들기",
+                    type: "mission",
+                    isKey: true,
+                    items: [
+                        "교육 진행 (09:00~15:00) 💻",
+                        "마크다운 기초",
+                        "볼트 구조 짜기 - 제텔카스텐 & PARA & CODE",
+                        "생성형 AI와 함께 볼트 구조 짜기",
+                        "옵시디언 설치 & 필수 템플릿 세팅",
+                        "3일 교육 과정 수료"
+                    ]
+                },
+                {
+                    date: "9.3 (목)",
+                    title: "휴식 및 관광",
+                    type: "rest",
+                    items: [
+                        "오전 휴식",
+                        "현지 관광 (빠뚜사이 / 탓루앙 등) 🚤",
                         "저녁 교제 및 나눔"
                     ]
                 },
                 {
-                    date: "3.28 (토)",
-                    title: "휴식 및 AI 교육",
-                    type: "mission",
-                    isKey: true,
+                    date: "9.4 (금)",
+                    title: "휴식 및 관광",
+                    type: "rest",
                     items: [
-                        "오전 휴식", 
-                        "AI 활용 교육 진행 (13:00~) 💻", 
-                        "저녁 식사"
+                        "자유 일정 및 관광",
+                        "짐 정리 및 사역 마무리 나눔"
                     ]
                 },
                 {
-                    date: "3.29 (일)",
-                    title: "장애인센터 교육 1일차",
-                    type: "mission",
-                    isKey: true,
-                    items: [
-                        "통기(Tongi) 센터 이동",
-                        "교육 시작 (10:00~16:00) 🏫", 
-                        "점심 식사 (센터)", 
-                        "저녁 휴식"
-                    ]
-                },
-                {
-                    date: "3.30 (월)",
-                    title: "장애인센터 교육 2일차",
-                    type: "mission",
-                    isKey: true,
-                    items: [
-                        "오전/오후 교육 (10:00~16:00) 🏫", 
-                        "팀 미팅 및 피드백"
-                    ]
-                },
-                {
-                    date: "3.31 (화)",
-                    title: "장애인센터 교육 3일차",
-                    type: "mission",
-                    isKey: true,
-                    items: [
-                        "오전/오후 교육 (10:00~16:00) 🏫", 
-                        "저녁 휴식"
-                    ]
-                },
-                {
-                    date: "4.01 (수)",
-                    title: "장애인센터 교육 4일차",
-                    type: "mission",
-                    isKey: true,
-                    items: [
-                        "오전/오후 교육 (10:00~16:00) 🏫", 
-                        "사역 마무리 나눔"
-                    ]
-                },
-                {
-                    date: "4.02 (목)",
-                    title: "교육 마무리 및 귀국 출발",
+                    date: "9.5 (토)",
+                    title: "귀국 (비엔티안 → 인천)",
                     type: "travel",
                     items: [
-                        "오전 교육 (10:00~13:00) 🏫", 
-                        "점심 후 짐 정리", 
-                        "공항 이동",
-                        "다카 출발 (23:15) -> 광저우행 ✈️"
-                    ]
-                },
-                {
-                    date: "4.03 (금)",
-                    title: "인천 도착",
-                    type: "travel",
-                    items: [
-                        "광저우 도착(05:00) / 출발(10:50)",
-                        "인천 도착 (15:25) 🏠",
+                        "비엔티안 출발 00:50 (제주항공 7C2402) ✈️",
+                        "인천 도착 08:10 🏠",
                         "해산"
                     ]
                 }
@@ -257,13 +233,14 @@
             // --------------------------------------------------------------------------
 
             useEffect(() => {
-                const defaultRoute = routes[0];
+                const defaultRoute = routes[1];
                 setMapUrl(`https://maps.google.com/maps?saddr=${defaultRoute.origin}&daddr=${defaultRoute.dest}&output=embed`);
+                setActiveRouteId(1);
             }, []);
 
             useEffect(() => {
                 const today = new Date();
-                const tripDate = new Date('2026-03-26');
+                const tripDate = new Date('2026-08-30');
                 const diffTime = tripDate - today;
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 setDDay(diffDays > 0 ? `D-${diffDays}` : diffDays === 0 ? 'D-Day' : `D+${Math.abs(diffDays)}`);
@@ -291,7 +268,7 @@
 
             const resetMapToBase = () => {
                 setActiveRouteId('base');
-                setMapUrl(`https://maps.google.com/maps?q=${locations[0].googleQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`);
+                setMapUrl(`https://maps.google.com/maps?q=${locations[0].googleQuery}&t=&z=12&ie=UTF8&iwloc=&output=embed`);
             };
 
             // --------------------------------------------------------------------------
@@ -300,7 +277,7 @@
 
             return (
                 <div className="min-h-screen bg-gray-100 font-sans text-gray-800 pb-20 md:pb-10">
-                    
+
                     {/* Header Section */}
                     <div className="bg-blue-600 rounded-b-[2rem] pt-8 pb-16 px-6 text-white shadow-lg relative overflow-hidden">
                         <Plane className="absolute top-10 right-6 text-blue-500 opacity-30 w-24 h-24 transform rotate-12" />
@@ -308,16 +285,18 @@
                             <div className="inline-block bg-blue-500/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-blue-400">
                                 {dDay} Calculator
                             </div>
-                            <h1 className="text-3xl font-bold mb-1 leading-tight">Dhaka Mission Trip</h1>
-                            <p className="text-blue-100 text-sm mb-6">2026 다카 단기선교 프로젝트</p>
-                            
+                            <h1 className="text-3xl font-bold mb-1 leading-tight">Laos AI Education Mission</h1>
+                            <p className="text-blue-100 text-sm mb-1">2026 라오스 AI교육 단기선교 (8.30~9.5)</p>
+                            <p className="text-blue-200 text-xs mb-6">"복음을 전하고 AI를 나눕니다" · 마 28:19</p>
+
                             <div className="bg-blue-700/50 backdrop-blur-md rounded-xl p-3 flex items-center">
                                 <div className="bg-blue-500 p-2 rounded-full mr-3">
                                     <Users className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
                                     <p className="text-xs text-blue-200">참여 인원</p>
-                                    <p className="font-bold text-sm">총 2명 (AI/커피 교육팀)</p>
+                                    <p className="font-bold text-sm">김태주 · 이광복 목사 (총 2명)</p>
+                                    <p className="text-[11px] text-blue-200 mt-0.5">온교회 김태주 목사 X 라온동행교회 이광복 목사</p>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +322,7 @@
 
                     {/* Content Area */}
                     <main className="max-w-md mx-auto px-4 mt-4 space-y-4">
-                        
+
                         {/* SCHEDULE TAB */}
                         {activeTab === 'schedule' && (
                             <div className="space-y-4 animate-fadeIn">
@@ -353,21 +332,18 @@
                                         주요 일정 요약
                                     </h3>
                                     <div className="space-y-3">
-                                        <div className="flex items-center bg-blue-50 p-3 rounded-xl">
-                                            <div className="bg-blue-100 text-blue-600 font-bold px-2 py-1 rounded text-xs mr-3">3.27</div>
-                                            <span className="text-sm font-medium text-gray-700">예배 설교 및 마트 방문</span>
-                                        </div>
-                                        <div className="flex items-center bg-indigo-50 p-3 rounded-xl">
-                                            <div className="bg-indigo-100 text-indigo-600 font-bold px-2 py-1 rounded text-xs mr-3">3.28</div>
-                                            <span className="text-sm font-medium text-gray-700">AI 활용 교육 (13:00)</span>
-                                        </div>
-                                        <div className="bg-emerald-50 p-3 rounded-xl">
+                                        <div className="bg-blue-50 p-3 rounded-xl">
                                             <div className="flex items-center">
-                                                <div className="bg-emerald-100 text-emerald-600 font-bold px-2 py-1 rounded text-xs mr-3">3.29-4.02</div>
-                                                <span className="text-sm font-medium text-gray-700">장애인센터 집중 교육 (통기)</span>
+                                                <div className="bg-blue-100 text-blue-600 font-bold px-2 py-1 rounded text-xs mr-3">8.31-9.2</div>
+                                                <span className="text-sm font-medium text-gray-700">AI 마스터클래스 3일 교육 (09:00~15:00)</span>
                                             </div>
                                         </div>
+                                        <div className="flex items-center bg-amber-50 p-3 rounded-xl">
+                                            <div className="bg-amber-100 text-amber-600 font-bold px-2 py-1 rounded text-xs mr-3">9.3-9.4</div>
+                                            <span className="text-sm font-medium text-gray-700">휴식 및 관광</span>
+                                        </div>
                                     </div>
+                                    <p className="text-[11px] text-gray-400 mt-3">※ 현지 교육 대상: 선착순 10명 소수정예 / 세부 커리큘럼은 현지 상황에 따라 변경될 수 있습니다.</p>
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-2">
@@ -377,8 +353,9 @@
                                                 <span className={`font-bold text-sm px-2 py-0.5 rounded-md ${day.isKey ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>
                                                     {day.date}
                                                 </span>
-                                                {day.type === 'mission' && <span className="text-[10px] font-bold text-emerald-500">사역</span>}
+                                                {day.type === 'mission' && <span className="text-[10px] font-bold text-emerald-500">교육</span>}
                                                 {day.type === 'travel' && <span className="text-[10px] font-bold text-amber-500">이동</span>}
+                                                {day.type === 'rest' && <span className="text-[10px] font-bold text-purple-500">휴식</span>}
                                             </div>
                                             <h4 className="font-bold text-gray-800 mb-2">{day.title}</h4>
                                             <ul className="space-y-1">
@@ -403,13 +380,13 @@
                                         <div className="absolute top-3 right-3 z-10 flex space-x-2">
                                             {activeRouteId !== 'base' && (
                                                 <button onClick={resetMapToBase} className="bg-white text-gray-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-md flex items-center border border-gray-200">
-                                                    <RefreshCw className="w-3 h-3 mr-1" /> 숙소 위치 보기
+                                                    <RefreshCw className="w-3 h-3 mr-1" /> 비엔티안 전체보기
                                                 </button>
                                             )}
                                         </div>
                                         <iframe width="100%" height="100%" style={{border:0}} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" src={mapUrl} title="Accommodation Map"></iframe>
                                     </div>
-                                    
+
                                     <div className="p-4 border-t border-gray-100">
                                         <div className="flex items-center justify-between mb-3">
                                             <h3 className="font-bold text-gray-800 flex items-center">
@@ -418,7 +395,7 @@
                                             </h3>
                                             <span className="text-[10px] text-gray-400">클릭하여 지도에 표시</span>
                                         </div>
-                                        
+
                                         <div className="space-y-2">
                                             {routes.map((route) => (
                                                 <div key={route.id} className={`rounded-xl border transition-all cursor-pointer p-3 ${activeRouteId === route.id ? 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-200' : 'border-gray-100 hover:border-emerald-200 hover:bg-gray-50'}`}>
@@ -457,7 +434,7 @@
                                                         {loc.icon}
                                                         <span className="font-bold text-gray-800 ml-2">{loc.name}</span>
                                                     </div>
-                                                    <span className={`text-[10px] px-2 py-1 rounded-full font-bold ${loc.type === '숙소' ? 'bg-blue-100 text-blue-600' : loc.id === 'church' ? 'bg-indigo-100 text-indigo-600' : 'bg-amber-100 text-amber-700'}`}>
+                                                    <span className={`text-[10px] px-2 py-1 rounded-full font-bold ${loc.type === '숙소' ? 'bg-blue-100 text-blue-600' : loc.id === 'venue' ? 'bg-indigo-100 text-indigo-600' : 'bg-amber-100 text-amber-700'}`}>
                                                         {loc.type}
                                                     </span>
                                                 </div>
@@ -474,6 +451,20 @@
                                         ))}
                                     </div>
                                 </div>
+
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                    <div className="p-5 border-b border-gray-50">
+                                        <h3 className="font-bold text-gray-800 flex items-center">
+                                            <Phone className="w-5 h-5 mr-2 text-emerald-600" />
+                                            현지 담당자 연락처
+                                        </h3>
+                                    </div>
+                                    <div className="p-5 space-y-2">
+                                        <p className="text-sm font-bold text-gray-800">김종한 (현지담당)</p>
+                                        <p className="text-xs text-gray-500 flex items-center"><Phone className="w-3 h-3 mr-1.5" /> 020-9169-2442</p>
+                                        <p className="text-xs text-gray-500 flex items-center"><MessageCircle className="w-3 h-3 mr-1.5" /> 카카오톡 ID: theist1004</p>
+                                    </div>
+                                </div>
                             </div>
                         )}
 
@@ -482,18 +473,33 @@
                             <div className="space-y-4 animate-fadeIn">
                                 <div className="bg-emerald-500 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
                                     <div className="absolute top-0 right-0 p-4 opacity-10"><Wallet size={100} /></div>
-                                    <p className="text-emerald-100 text-sm font-medium mb-1">1인 예상 비용 (항공권 제외)</p>
-                                    <h2 className="text-3xl font-bold mb-4">₩ 350,000</h2>
+                                    <p className="text-emerald-100 text-sm font-medium mb-1">1인 예상 총비용 (항공권 포함)</p>
+                                    <h2 className="text-3xl font-bold mb-1">₩ 1,496,800</h2>
+                                    <p className="text-xs text-emerald-100 mb-4">항공권 1,146,800원 + 현지경비 350,000원</p>
                                     <div className="flex justify-between items-end border-t border-emerald-400/50 pt-4">
                                         <span className="text-sm text-emerald-100">총 예산 (2인 기준)</span>
-                                        <span className="text-xl font-bold">₩ 700,000</span>
+                                        <span className="text-xl font-bold">₩ 2,993,600</span>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                    <div className="px-5 py-4 border-b border-gray-100 flex items-center">
+                                        <Plane className="w-5 h-5 mr-2 text-gray-400" />
+                                        <h3 className="font-bold text-gray-800">항공권 (제주항공 왕복)</h3>
+                                    </div>
+                                    <div className="p-5 flex justify-between items-center">
+                                        <div>
+                                            <p className="font-bold text-gray-800 text-sm">1인 요금</p>
+                                            <p className="text-xs text-gray-400 mt-0.5">ICN↔VTE / 7C2401, 7C2402 / 15kg 위탁</p>
+                                        </div>
+                                        <span className="font-bold text-blue-600 text-sm">1,146,800원</span>
                                     </div>
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                                     <div className="px-5 py-4 border-b border-gray-100 flex items-center">
                                         <BookOpen className="w-5 h-5 mr-2 text-gray-400" />
-                                        <h3 className="font-bold text-gray-800">세부 산출 내역 (현지 2인)</h3>
+                                        <h3 className="font-bold text-gray-800">현지 경비 세부 산출 내역 (2인)</h3>
                                     </div>
                                     <div className="divide-y divide-gray-50">
                                         <div className="p-5 flex justify-between items-center">
@@ -506,7 +512,7 @@
                                         <div className="p-5 flex justify-between items-center">
                                             <div>
                                                 <p className="font-bold text-gray-800 text-sm">교통비</p>
-                                                <p className="text-xs text-gray-400 mt-0.5">릭샤 및 우버 이동</p>
+                                                <p className="text-xs text-gray-400 mt-0.5">뚝뚝 및 차량 이동</p>
                                             </div>
                                             <span className="font-bold text-emerald-600 text-sm">100,000원</span>
                                         </div>
@@ -529,6 +535,10 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-xs text-gray-500">
+                                    참고: 현지 AI 마스터클래스는 선착순 10명 대상, 참가비 오전반 70달러 / 저녁반 50달러(식사·간식·자료 포함)로 별도 자체 운영되며 위 예산에는 포함되지 않습니다.
+                                </div>
                             </div>
                         )}
 
@@ -544,11 +554,11 @@
                                     </div>
                                     <div className="divide-y divide-gray-50 p-2 grid grid-cols-1 md:grid-cols-2 gap-x-4">
                                         {[
-                                            "여권", "비행기표 발권", "비자 (도착비자 확인)", "여행자보험", "달러", "로밍", "유심", 
-                                            "교육용 맥북/태블릿", "수업재료", "원두", "글라인더(코만단테)", "드리퍼 2개",
-                                            "상비약(타이레놀,지사제,대일밴드,신경통)", "모기기피제", "개인 물통 & 정수 알약", "충전기/여행콘센트",
-                                            "바람막이", "얇은 긴팔 (보수적 의상)", "토시", "선글라스", "모자", "안대", "목베개", 
-                                            "손수건", "쿨타월", "속옷 8벌", "티셔츠 8벌", "반바지 3벌", "긴바지 1벌", "셔츠 1벌", 
+                                            "여권 (유효기간 6개월 이상)", "항공권 E-ticket", "비자 (무비자 입국 여부 사전 확인)", "여행자보험", "달러(현금)", "로밍 또는 유심",
+                                            "교육용 노트북/맥북", "노트북 충전기", "보조배터리", "멀티탭/여행용 콘센트", "강의자료 USB/파일", "구글 계정 로그인 정보",
+                                            "상비약(타이레놀,지사제,대일밴드,멀미약)", "모기기피제", "개인 물통 & 정수 알약", "우산 또는 우비(우기 대비)",
+                                            "바람막이", "얇은 긴팔 (단정한 복장)", "선글라스", "모자", "안대", "목베개",
+                                            "손수건", "쿨타월", "속옷 8벌", "티셔츠 8벌", "반바지 3벌", "긴바지 1벌", "셔츠 1벌",
                                             "크록스", "면도기", "세면도구", "썬크림"
                                         ].map((item, idx) => (
                                             <label key={idx} className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
@@ -559,7 +569,7 @@
                                     </div>
                                 </div>
                                 <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100 text-sm text-orange-800">
-                                    <strong>⚠️ 주의사항:</strong> 식수는 반드시 밀봉된 생수만 드시고, 얼음이 들어간 음료는 피하세요.
+                                    <strong>⚠️ 주의사항:</strong> 식수는 반드시 밀봉된 생수만 드시고, 얼음이 들어간 음료는 피하세요. 8~9월은 라오스 우기이니 우산/우비를 꼭 챙기세요.
                                 </div>
                             </div>
                         )}
@@ -569,9 +579,7 @@
         };
 
         const root = createRoot(document.getElementById('root'));
-        root.render(<DhakaDashboard />);
+        root.render(<LaosDashboard />);
     </script>
 </body>
 </html>
-
-
